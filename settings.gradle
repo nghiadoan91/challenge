@@ -1,2 +1,4 @@
 rootProject.name = "OpnChallenge"
 include ':app'
+include ':domain'
+include ':data'
