@@ -22,7 +22,7 @@ class OrderSummaryProductListViewHolder(
     }
 
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as OrderSummaryItemModel.ProductListModel) {
+        (itemData as? OrderSummaryItemModel.ProductListModel)?.run {
             productAdapter.submitList(productList)
         }
     }

@@ -85,7 +85,4 @@ class OrderSummaryAdapter :
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.bind(currentList[position], position)
     }
-
-    // Relay
-    fun bindProductActionRelay() = productActionRelay
 }

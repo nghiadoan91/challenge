@@ -73,6 +73,8 @@ class StoreFragment : BaseFragment() {
         mViewModel.storeViewStateLiveData.observe(viewLifecycleOwner) {
             storeAdapter.submitList(StoreItemModel.fromStoreViewState(it))
         }
+
+        mViewModel.loadInit()
     }
 
     override fun onDestroyView() {

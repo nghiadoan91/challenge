@@ -21,9 +21,6 @@ class StoreViewModel @Inject constructor(
     private val fetchProductUseCase: FetchProductUseCase,
     private val schedulersFacade: SchedulersFacade
 ) : BaseViewModel() {
-    init {
-        loadInit()
-    }
     val storeViewStateLiveData: MediatorLiveData<StoreViewState> by lazy {
         MediatorLiveData<StoreViewState>().apply {
             addSource(storeLiveData) { source ->

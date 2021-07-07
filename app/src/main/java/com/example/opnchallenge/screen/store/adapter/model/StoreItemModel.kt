@@ -10,13 +10,13 @@ sealed class StoreItemModel(
     data class StoreModel(
         val store: Store = Store()
     ) : StoreItemModel(
-        viewId = "STORE_VIEW"
+        viewId = SECTION_STORE_VIEW
     )
 
     data class ProductListModel(
         val productList: List<ProductViewState>
     ) : StoreItemModel(
-        viewId = "PRODUCT_LIST_VIEW"
+        viewId = SECTION_PRODUCT_LIST_VIEW
     )
 
     companion object {
@@ -30,5 +30,8 @@ sealed class StoreItemModel(
                 )
             )
         }
+
+        const val SECTION_STORE_VIEW = "SECTION_STORE_VIEW"
+        const val SECTION_PRODUCT_LIST_VIEW = "SECTION_PRODUCT_LIST_VIEW"
     }
 }

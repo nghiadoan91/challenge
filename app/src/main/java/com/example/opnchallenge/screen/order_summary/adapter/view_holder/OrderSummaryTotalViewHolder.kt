@@ -10,7 +10,7 @@ class OrderSummaryTotalViewHolder(
     BaseViewHolder(binding) {
 
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as OrderSummaryItemModel.TotalModel) {
+        (itemData as? OrderSummaryItemModel.TotalModel)?.run {
             with(binding) {
                 textViewPrice.text = price.toString()
             }

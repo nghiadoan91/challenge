@@ -6,7 +6,7 @@ import com.example.opnchallenge.screen.store.adapter.model.StoreItemModel
 
 class StoreViewHolder(val binding: ListItemStoreBinding) : BaseViewHolder(binding) {
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as StoreItemModel.StoreModel) {
+        (itemData as? StoreItemModel.StoreModel)?.run {
             with(binding) {
                 textViewName.text = store.name
                 ratingBar.rating = store.rating.toFloat()

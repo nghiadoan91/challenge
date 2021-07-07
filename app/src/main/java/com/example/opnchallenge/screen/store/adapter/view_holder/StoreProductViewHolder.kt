@@ -14,11 +14,11 @@ class StoreProductViewHolder(
     val productActionRelay: Relay<ProductActionRelay>
 ) : BaseViewHolder(binding) {
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as ProductViewState) {
+        (itemData as? ProductViewState)?.run {
             with(binding) {
-                textViewName.text = itemData.name
-                textViewPrice.text = itemData.price.toString()
-                textViewQty.text = itemData.addedQty.toString()
+                textViewName.text = name
+                textViewPrice.text = price.toString()
+                textViewQty.text = addedQty.toString()
                 imageView.loadUrl(root.context, imageUrl)
                 buttonMinus.isEnabled = addedQty > 0
                 buttonAdd.clicks()

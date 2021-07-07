@@ -25,8 +25,8 @@ class StoreProductListViewHolder(
     }
 
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as StoreItemModel.ProductListModel) {
-            productAdapter.submitList(itemData.productList)
+        (itemData as? StoreItemModel.ProductListModel)?.run {
+            productAdapter.submitList(productList)
         }
     }
 }

@@ -8,7 +8,7 @@ class OrderSummaryProductViewHolder(
     val binding: ListItemOrderSummaryProductBinding
 ) : BaseViewHolder(binding) {
     override fun bind(itemData: Any, position: Int) {
-        with(itemData as ProductViewState) {
+        (itemData as? ProductViewState)?.run {
             with(binding) {
                 textViewName.text = "$name X $addedQty"
                 textViewPrice.text = (price * addedQty).toString()
