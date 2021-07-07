@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.example.opnchallenge.base.BaseViewModel
 import com.example.opnchallenge.base.SchedulersFacade
-import com.example.opnchallenge.base.extension.toBundle
 import com.example.domain.model.OrderSummaryState
+import com.example.domain.model.ProductViewState
 import com.example.domain.usecase.MakeOrderUseCase
+import com.example.opnchallenge.screen.order_summary.OrderSummaryFragment.Companion.PRODUCT_ARG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
@@ -19,18 +20,13 @@ class OrderSummaryViewModel @Inject constructor(
     private val schedulersFacade: SchedulersFacade
 ) : BaseViewModel() {
 
-    private val orderSummaryFragmentArgs by lazy {
-        OrderSummaryFragmentArgs.fromBundle(
-            savedStateHandle.toBundle
-        )
-    }
     val orderSummaryStateLiveData by lazy { MutableLiveData(OrderSummaryState()) }
     private val addressLiveData by lazy { MutableLiveData("") }
     val orderSuccessLiveData by lazy { MutableLiveData(false) }
 
-    init {
+    fun loadInit() {
         orderSummaryStateLiveData.value =
-            OrderSummaryState(orderSummaryFragmentArgs.productList.toList())
+            OrderSummaryState(savedStateHandle.get<Array<ProductViewState>>(PRODUCT_ARG)?.toList() ?: emptyList())
     }
 
     fun updateAddress(address: String) {

@@ -42,6 +42,7 @@ class StoreProductViewHolderTest {
             ),
             productActionRelay = PublishRelay.create()
         )
+        Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
 
     @Test
@@ -72,7 +73,6 @@ class StoreProductViewHolderTest {
         view.bind(productViewState, 0)
 
         // Act
-        Shadows.shadowOf(Looper.getMainLooper()).idle()
         view.binding.buttonAdd.performClick()
 
         // Assert
@@ -92,7 +92,6 @@ class StoreProductViewHolderTest {
         view.bind(productViewState, 0)
 
         // Act
-        Shadows.shadowOf(Looper.getMainLooper()).idle()
         view.binding.buttonAdd.performClick()
 
         // Assert

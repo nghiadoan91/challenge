@@ -21,6 +21,10 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class OrderSummaryFragment : BaseFragment() {
 
+    companion object {
+        const val PRODUCT_ARG = "productList"
+    }
+
     private var _binding: FragmentOrderSummaryBinding? = null
     private val binding get() = _binding!!
 
@@ -44,16 +48,6 @@ class OrderSummaryFragment : BaseFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        mViewModel.orderSummaryStateLiveData.observe(viewLifecycleOwner) {
-            orderSummaryAdapter.submitList(OrderSummaryItemModel.fromOrderSummaryState(it))
-        }
-
-        mViewModel.orderSuccessLiveData.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderSuccessFragment())
-            }
-        }
-
         subscriptions += binding.editTextAddress.textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
             .observeOn(schedulersFacade.ui)
@@ -71,6 +65,18 @@ class OrderSummaryFragment : BaseFragment() {
                     mViewModel.makeOrder()
                 }
             )
+
+        mViewModel.orderSummaryStateLiveData.observe(viewLifecycleOwner) {
+            orderSummaryAdapter.submitList(OrderSummaryItemModel.fromOrderSummaryState(it))
+        }
+
+        mViewModel.orderSuccessLiveData.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(OrderSummaryFragmentDirections.actionOrderSummaryFragmentToOrderSuccessFragment())
+            }
+        }
+
+        mViewModel.loadInit()
     }
 
     override fun onDestroyView() {
