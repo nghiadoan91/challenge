@@ -3,26 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/StoreFragment">
+    app:startDestination="@id/storeFragment">
 
     <fragment
-        android:id="@+id/StoreFragment"
+        android:id="@+id/storeFragment"
         android:name="com.example.opnchallenge.screen.store.StoreFragment"
         android:label="@string/store_fragment_label"
         tools:layout="@layout/fragment_store">
 
         <action
             android:id="@+id/action_StoreFragment_to_OrderSummaryFragment"
-            app:destination="@id/OrderSummaryFragment" />
+            app:destination="@id/orderSummaryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/OrderSummaryFragment"
+        android:id="@+id/orderSummaryFragment"
         android:name="com.example.opnchallenge.screen.order_summary.OrderSummaryFragment"
         android:label="@string/order_summary_fragment_label"
         tools:layout="@layout/fragment_order_summary">
 
         <action
             android:id="@+id/action_OrderSummaryFragment_to_StoreFragment"
-            app:destination="@id/StoreFragment" />
+            app:destination="@id/storeFragment" />
+        <argument
+            android:name="productList"
+            app:argType="com.example.domain.model.ProductViewState[]" />
+        <action
+            android:id="@+id/action_OrderSummaryFragment_to_orderSuccessFragment"
+            app:destination="@id/orderSuccessFragment"
+            app:popUpTo="@id/orderSummaryFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/orderSuccessFragment"
+        android:name="com.example.opnchallenge.screen.order_success.OrderSuccessFragment"
+        android:label="@string/order_success_label"
+        tools:layout="@layout/fragment_order_success"/>
 </navigation>

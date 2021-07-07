@@ -5,12 +5,13 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.opnchallenge.base.BaseFragment
 import com.example.opnchallenge.databinding.FragmentStoreBinding
 import com.example.opnchallenge.screen.store.adapter.StoreAdapter
+import com.example.opnchallenge.screen.store.adapter.model.StoreItemModel
 import com.jakewharton.rxbinding4.view.clicks
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -24,7 +25,7 @@ class StoreFragment : BaseFragment() {
 
     private val binding get() = _binding!!
 
-    private val mViewModel by activityViewModels<StoreViewModel>()
+    private val mViewModel by viewModels<StoreViewModel>()
 
     private val storeAdapter = StoreAdapter()
 
@@ -58,15 +59,20 @@ class StoreFragment : BaseFragment() {
             .subscribeBy(
                 onError = {},
                 onNext = {
-                    findNavController().navigate(StoreFragmentDirections.actionStoreFragmentToOrderSummaryFragment())
+                    mViewModel.selectedList.takeIf { it.isNotEmpty() }
+                        ?.let {
+                            findNavController().navigate(
+                                StoreFragmentDirections.actionStoreFragmentToOrderSummaryFragment(
+                                    it.toTypedArray()
+                                )
+                            )
+                        }
                 }
             )
 
         mViewModel.storeViewStateLiveData.observe(viewLifecycleOwner) {
-            storeAdapter.submitList(it.toAdapterCollection())
+            storeAdapter.submitList(StoreItemModel.fromStoreViewState(it))
         }
-
-        mViewModel.loadInit()
     }
 
     override fun onDestroyView() {

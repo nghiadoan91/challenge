@@ -1,6 +1,6 @@
 package com.example.opnchallenge.screen.store.relay
 
-import com.example.opnchallenge.screen.store.adapter.state.ProductViewState
+import com.example.domain.model.ProductViewState
 
 sealed class ProductActionRelay(
     open val product: ProductViewState

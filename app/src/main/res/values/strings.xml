@@ -11,4 +11,10 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="to">To</string>
     <string name="order">Order</string>
+    <string name="confirm">Confirm</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="total">Total</string>
+    <string name="order_success">Order Success</string>
+    <string name="back_to_store">Back to Store</string>
+    <string name="order_success_label">OrderSuccessFragment</string>
 </resources>

@@ -1,19 +1,15 @@
-package com.example.opnchallenge.screen.store.adapter
+package com.example.opnchallenge.screen.order_summary.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.opnchallenge.base.BaseViewHolder
-import com.example.opnchallenge.databinding.ListItemProductBinding
+import com.example.opnchallenge.databinding.ListItemOrderSummaryProductBinding
+import com.example.opnchallenge.screen.order_summary.adapter.view_holder.OrderSummaryProductViewHolder
 import com.example.domain.model.ProductViewState
-import com.example.opnchallenge.screen.store.adapter.view_holder.StoreProductViewHolder
-import com.example.opnchallenge.screen.store.relay.ProductActionRelay
-import com.jakewharton.rxrelay3.Relay
 
-class ProductAdapter(
-    val productActionRelay: Relay<ProductActionRelay>
-) :
+class OrderSummaryProductAdapter() :
     ListAdapter<ProductViewState, BaseViewHolder>(object :
             DiffUtil.ItemCallback<ProductViewState>() {
             override fun areItemsTheSame(
@@ -34,14 +30,13 @@ class ProductAdapter(
     override fun getItemCount(): Int = currentList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return StoreProductViewHolder(
-            binding = ListItemProductBinding.inflate(
+        return OrderSummaryProductViewHolder(
+            binding = ListItemOrderSummaryProductBinding.inflate(
                 LayoutInflater.from(
                     parent.context
                 ),
                 parent, false
-            ),
-            productActionRelay = productActionRelay
+            )
         )
     }
 

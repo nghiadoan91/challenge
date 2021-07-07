@@ -1,7 +1,8 @@
 package com.example.opnchallenge.screen.store.adapter.model
 
 import com.example.data.model.Store
-import com.example.opnchallenge.screen.store.adapter.state.ProductViewState
+import com.example.domain.model.ProductViewState
+import com.example.domain.model.StoreViewState
 
 sealed class StoreItemModel(
     val viewId: String
@@ -17,4 +18,17 @@ sealed class StoreItemModel(
     ) : StoreItemModel(
         viewId = "PRODUCT_LIST_VIEW"
     )
+
+    companion object {
+        fun fromStoreViewState(storeViewState: StoreViewState): List<StoreItemModel> {
+            return listOf(
+                StoreModel(
+                    store = storeViewState.store
+                ),
+                ProductListModel(
+                    productList = storeViewState.productList
+                )
+            )
+        }
+    }
 }

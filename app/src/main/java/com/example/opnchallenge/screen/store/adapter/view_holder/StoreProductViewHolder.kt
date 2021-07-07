@@ -3,7 +3,7 @@ package com.example.opnchallenge.screen.store.adapter.view_holder
 import com.example.opnchallenge.base.BaseViewHolder
 import com.example.opnchallenge.base.extension.loadUrl
 import com.example.opnchallenge.databinding.ListItemProductBinding
-import com.example.opnchallenge.screen.store.adapter.state.ProductViewState
+import com.example.domain.model.ProductViewState
 import com.example.opnchallenge.screen.store.relay.ProductActionRelay
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxrelay3.Relay

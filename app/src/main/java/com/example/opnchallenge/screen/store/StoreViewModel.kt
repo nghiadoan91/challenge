@@ -7,8 +7,8 @@ import com.example.domain.usecase.FetchProductUseCase
 import com.example.domain.usecase.FetchStoreUseCase
 import com.example.opnchallenge.base.BaseViewModel
 import com.example.opnchallenge.base.SchedulersFacade
-import com.example.opnchallenge.screen.store.adapter.state.ProductViewState
-import com.example.opnchallenge.screen.store.adapter.state.StoreViewState
+import com.example.domain.model.ProductViewState
+import com.example.domain.model.StoreViewState
 import com.example.opnchallenge.screen.store.relay.ProductActionRelay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -21,7 +21,9 @@ class StoreViewModel @Inject constructor(
     private val fetchProductUseCase: FetchProductUseCase,
     private val schedulersFacade: SchedulersFacade
 ) : BaseViewModel() {
-
+    init {
+        loadInit()
+    }
     val storeViewStateLiveData: MediatorLiveData<StoreViewState> by lazy {
         MediatorLiveData<StoreViewState>().apply {
             addSource(storeLiveData) { source ->
@@ -61,16 +63,6 @@ class StoreViewModel @Inject constructor(
         disposables += fetchProductUseCase.execute()
             .subscribeOn(schedulersFacade.io)
             .observeOn(schedulersFacade.ui)
-            .map {
-                it.mapIndexed { index, product ->
-                    ProductViewState(
-                        id = index,
-                        name = product.name,
-                        price = product.price,
-                        imageUrl = product.imageUrl
-                    )
-                }
-            }
             .subscribeBy(
                 onError = {},
                 onSuccess = {
@@ -92,4 +84,7 @@ class StoreViewModel @Inject constructor(
             }
         }
     }
+
+    val selectedList: List<ProductViewState>
+        get() = productListLiveData.value?.filter { it.addedQty > 0 } ?: emptyList()
 }
